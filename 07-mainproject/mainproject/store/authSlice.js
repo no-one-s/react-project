@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'//createSlice help us in creating a slice
+//slice is just a collection of reducers
+//reduders are basiclly  
 
 const initialState = {
     status: false,

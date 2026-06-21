@@ -4,6 +4,11 @@ appwriteProjectId: String(import.meta.env.VITE_APPWRITE_PROJECT_ID),
 appwriteDatabaseId: String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
 appwriteCollectionId: String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
 appwriteBucketId: String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
+tinyMCEAPIKEY: String(import.meta.env.VITE_APPWRITE_TINYMCE_API_KEY)
 }
 
 export default conf
+
+//conf file is a Barrel file. it is providing access to all content of .env file as a js object name conf.
+
+//this is done so code can be easily manageable if one day we have to change any location in .env

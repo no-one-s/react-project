@@ -1,21 +1,23 @@
 import conf from "../conf/conf";
 import { Client, ID, Databases, Storage, Query } from "appwrite";
-
+//database provides access to database of appwrite
+//storage stores all files 
+//query let to filter and sort through data you get
 class Service {
     client = new Client();
-    databases;
+    databases;//creating variable
     buket;
     constructor() {
         this.client.setEndpoint(conf.appwriteUrl).setProject(conf.appwriteProjectId);
         this.databases = new Databases(this.client);
-        this.buket = new Storage(this.client);
+        this.buket = new Storage(this.client);// setting client and geting access to storage and database 
     }
     async createPost({ title, slug, featuredImage, status, content, userId }) {
         try {
-            return await this.databases.createDocument(
+            return await this.databases.createDocument(//you will know what create document need to work in documentation 
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
-                slug,
+                slug,//we are using slug as a id 
                 {
                     title,
                     featuredImage,
@@ -87,6 +89,7 @@ class Service {
             return false;
         }
     }
+    
 
 
     //files service
@@ -130,5 +133,8 @@ class Service {
     }
 }
 
-const service = new Service();
+const service = new Service();// same reason as auth.js
 export default service;
+
+//same as auth.js
+//this file provide us access to all all post and file management

@@ -16,3 +16,12 @@ function LogoutBtn() {
 }
 
 export default LogoutBtn
+// In React applications using Redux or Redux Toolkit, 
+// useDispatch is a custom React hook that returns a reference to the 
+// Redux store's dispatch function. You use this returned function to trigger
+//  actions that update your global state.
+
+
+//State in Redux is read-only. The only way to change it is to dispatch an action (a plain JavaScript object describing what happened). The useDispatch hook gives your functional components the ability to send these actions directly to the Redux store
+
+//hence we use useDispatch to update value in store

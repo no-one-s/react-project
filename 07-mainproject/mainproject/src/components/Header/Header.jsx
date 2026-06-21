@@ -1,15 +1,15 @@
 import React from 'react'
 import { Container, Logo, LogoutBtn } from '../index'
-import { link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 
 function Header() {
     const authStatus = useSelector((State) => State.auth.status)
-    const navigate = useNavigate()
+    const navigate = useNavigate()// almost work same as link but it act as a function and dont require clicking.
 
-    const navItems = [
+    const navItems = [//in here we are pre defining nav bar options according to if person is signined or not
         {
             name: 'home',
             slug: "/",

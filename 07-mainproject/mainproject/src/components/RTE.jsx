@@ -1,6 +1,7 @@
 import React from 'react'
 import { Editor } from '@tinymce/tinymce-react';
 import { Controller } from 'react-hook-form';
+import conf from '../../conf/conf';
 
 
 export default function RTE({ name, control, label, defaultValue = "" }) {
@@ -15,6 +16,7 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                     <Editor
                         initialValue={defaultValue}
                         init={{
+                            // apiKey: conf.tinyMCEAPIKEY,
                             initialValue: defaultValue,
                             height: 500,
                             menubar: true,
@@ -39,9 +41,16 @@ export default function RTE({ name, control, label, defaultValue = "" }) {
                                 "help",
                                 "wordcount",
                                 "anchor",
+                                "tinymceai",
                             ],
                             toolbar:
-                                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help",
+                                "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent |removeformat | help | tinymceai",
+                            tinymceai_token_provider: async () => {
+                                await fetch('https://demo.api.tiny.cloud/1/plj7jcms87eaqtppbe0zqst4demp444dtuxffmsrcbfo0md8/auth/random', { method: "POST", credentials: "include" });
+                                return {
+                                    token: await fetch('https://demo.api.tiny.cloud/1/plj7jcms87eaqtppbe0zqst4demp444dtuxffmsrcbfo0md8/jwt/tinymceai', { credentials: "include" }).then(r => r.text())
+                                };
+                            },
                             content_style: "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }"
                         }}
                         onEditorChange={onChange}
