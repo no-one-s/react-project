@@ -9,7 +9,7 @@ function PostCard({$id,title,featuredImage}) {
                 <div className='w-full jastify-center mb-4'>
                     <img src={service.getFilePreview(featuredImage)} alt={title} className='rounded-xl'/>
                 </div>
-                <h2>{title}</h2>
+                <h2>{title} </h2>
             </div>
         </Link>
     )

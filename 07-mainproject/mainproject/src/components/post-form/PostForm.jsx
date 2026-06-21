@@ -15,8 +15,8 @@ function PostForm({ post }) {
         }
     })
     const navigate = useNavigate()
-    const userData = useSelector(state => state.auth.userData)
-    
+    const userData = useSelector((state) => state.auth.userData)
+
     const submit = async (data) => {
         if (post) {
             const file = data.image?.[0] ? await appwriteService.uploadFile(data.image[0]) : null
@@ -25,24 +25,19 @@ function PostForm({ post }) {
             }
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined
+                featuredImage: file ? file.$id : undefined,
             })
             if (dbPost) {
                 navigate(`/post/${dbPost.$id}`)
             }
         } else {
-            const userId = userData?.$id
-            if (!userId) {
-                console.error('Unable to create post: no authenticated user found.')
-                navigate('/login')
-                return
-            }
 
             const file = await appwriteService.uploadFile(data.image[0])
             if (file) {
-                const fileId = file.$id
-                data.featuredImage = fileId
-                const dbPost = await appwriteService.createPost({ ...data, userId })
+                const fileId = file.$id;
+                data.featuredImage = fileId;
+                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`)
                 }
@@ -51,22 +46,23 @@ function PostForm({ post }) {
     }
     const slugTransform = useCallback((value) => {
         if (value && typeof value === 'string') {
-            const slug = value.trim().toLowerCase().replace(/^[a-zA-Z\d\s] /g, '-').replace(/\s/g, '-')
-            setValue('slug', slug)
+            const slug = value
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9\s]+/g, '-')
+                .replace(/\s/g, '-')
             return slug
         } else {
             return ''
         }
     }, [])
     useEffect(() => {
-        const subscription = watch(() => {
-            if (name = 'title') {
-                setValue('slug', slugTransform(value.title, { shouldValidatte: true }))
+        const subscription = watch((value, { name }) => {
+            if (name === 'title') {
+                setValue('slug', slugTransform(value.title), { shouldValidate: true })
             }
         });
-        return () => {
-            subscription.unsubscribe()
-        }
+        return () => subscription.unsubscribe()
     }, [watch, slugTransform, setValue])
     return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">

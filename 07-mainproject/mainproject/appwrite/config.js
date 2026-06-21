@@ -20,18 +20,18 @@ class Service {
                 slug,//we are using slug as a id 
                 {
                     title,
+                    content,
                     featuredImage,
                     status,
-                    content,
                     userId
                 }
             );
         } catch (error) {
             console.error("Error creating post:", error);
-            return false;
+            
         }
     }
-    async updatePosts(slug, { title, featuredImage, status, content }) {
+    async updatePost(slug, { title, featuredImage, status, content }) {
         try {
             return await this.databases.updateDocument(
                 conf.appwriteDatabaseId,
@@ -47,16 +47,16 @@ class Service {
         }
         catch (error) {
             console.error("Error updating post:", error);
-            return false;
         }
     }
     async deletePost(slug) {
         try {
-            return await this.databases.deleteDocument(
+            await this.databases.deleteDocument(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 slug
-            );
+            )
+            return true
         }
         catch (error) {
             console.error("Error deleting post:", error);
