@@ -3,6 +3,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../../appwrite/config";
 import { Button, Container } from "../components";
 import parse from "html-react-parser";
+// html-react-parser is a library that converts HTML strings into React components.
+//  It is used to render the content of the post, which is stored as an HTML string in the database.
+// '<p>hello</p>' to <p>hello</p> 
 import { useSelector } from "react-redux";
 
 export default function Post() {

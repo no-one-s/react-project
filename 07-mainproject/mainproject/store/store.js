@@ -9,4 +9,5 @@ export const store = configureStore({//default to create store
 })
 
 
-
+//when in a file somthing is exported as default we can import it with any name we want.
+// but when it is exported as named export we have to import it with the same name.

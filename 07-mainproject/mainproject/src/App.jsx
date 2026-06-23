@@ -31,6 +31,7 @@ function App() {
         <Header />
         <main>
           <Outlet />
+          // Outlet is a component provided by react-router-dom that renders the matched child route component. It is used to render the content of the page based on the current route.
         </main>
         <Footer />
       </div>

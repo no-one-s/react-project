@@ -72,7 +72,12 @@ const router = createBrowserRouter([
     ],
 },
 ])
+// createbrowserrouter is a function provided by react-router-dom that creates a router instance 
+// that uses the HTML5 history API to keep the UI in sync with the URL. It is used to define 
+// the routes of the application and their corresponding components.
 
+
+//createRoot is a function provided by react-dom that creates a root for rendering a React application.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>

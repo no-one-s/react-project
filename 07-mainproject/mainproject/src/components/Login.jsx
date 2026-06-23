@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
-import { Link, useNavigate, useNavigation, useSearchParams } from 'react-router-dom'
+import { Link, useNavigate, useNavigation, useSearchParams } from 'react-router-dom' 
 import { login as authLogin } from '../../store/authSlice'
 import { Button, Input, Logo } from './index'
 import { useDispatch } from 'react-redux'
 import authService from '../../appwrite/auth'
 import { useForm } from 'react-hook-form'
+// useForm is a custom React hook that provides a way to manage form state and validation in React applications.
+//  It simplifies the process of handling form inputs, validation, and submission by providing a set of methods and 
+// properties that can be used to register form fields, handle form submission, and manage form state. In this code snippet, 
+// useForm is used to handle the login form inputs and validation.
+
 function Login() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit } = useForm() // useForm returns an object with several properties and methods that can be used to manage form state and validation.
     const [error, setError] = useState("")
 
     const login = async (data) => {
@@ -18,7 +23,7 @@ function Login() {
             if (session) {
                 const userData = await authService.getCurrentUser()
                 if (userData) dispatch(authLogin(userData));
-                navigate('/')
+                navigate('/') //automatically redirect to home page after login
             }
         } catch (error) {
             setError(error.message)
@@ -47,6 +52,7 @@ function Login() {
                 </p>
                 {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
                 <form onSubmit={handleSubmit(login)} className='mt-8'>
+                    // handleSubmit is a method provided by useForm that wraps the login function and handles form submission. must to use
                     <div className='space-y-5'>
                         <Input
                             label="Email: "
@@ -57,7 +63,9 @@ function Login() {
                                 validate: {
                                     matchPatern: (value) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value) ||
                                         "Email address must be a valid address",
+                                        //matchPatern is a custom validation function that checks if the email address entered by the user matches a specific pattern.
                                 }
+                                //...register is a spread operator that is used to spread the properties of the object returned by register function into the Input component.
                             })}
                         />
                         <Input

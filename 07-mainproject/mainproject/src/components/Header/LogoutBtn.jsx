@@ -1,5 +1,6 @@
 import React from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'// useDispatch is a hook provided by react-redux that allows you to access the dispatch function from the Redux store in your React components.
+// 
 import authService from '../../../appwrite/auth.js'
 import {logout} from '../../../store/authSlice.js'
 

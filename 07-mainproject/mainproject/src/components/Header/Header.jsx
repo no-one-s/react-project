@@ -1,7 +1,9 @@
 import React from 'react'
 import { Container, Logo, LogoutBtn } from '../index'
 import { Link } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux' // useSelector is a hook provided by react-redux that allows you to access the state of the Redux store in your React components.
+//  It takes a function as an argument that specifies which part of the state you want to access, and returns the current value of that part of the state.
+//  In this case, we are using useSelector to access the auth status from the Redux store, which will determine whether certain navigation items should be displayed or not.
 import { useNavigate } from 'react-router-dom'
 
 

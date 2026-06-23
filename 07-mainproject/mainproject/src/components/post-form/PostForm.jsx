@@ -8,10 +8,11 @@ import { useSelector } from 'react-redux'
 function PostForm({ post }) {
     const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
         defaultValues: {
-            title: post?.title || '',
+            title: post?.title || '',//if post exists, set the default value of title to post.title, otherwise set it to an empty string.
             slug: post?.slug || '',
             content: post?.content || '',
             status: post?.status || 'active',
+            // image: post?.featuredImage || null, // image is not a string, it's an object, so we can't set it as a default value. We will handle it separately in the form.
         }
     })
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ function PostForm({ post }) {
 
     const submit = async (data) => {
         if (post) {
-            const file = data.image?.[0] ? await appwriteService.uploadFile(data.image[0]) : null
+            const file = data.image?.[0] ? await appwriteService.uploadFile(data.image[0]) : null //in data we have image as an array of files, so we need to check if the first file exists and then upload it. If it doesn't exist, we set file to null.
             if (file) {
                 appwriteService.deleteFile(post.featuredImage)
             }
@@ -56,6 +57,12 @@ function PostForm({ post }) {
             return ''
         }
     }, [])
+    // useCallback is a React hook that returns a memoized version of the callback function 
+    // that only changes if one of the dependencies has changed.
+    //  In this case, slugTransform will only be recreated if its dependencies change, which are none in this case.
+    //  This is useful for performance optimization, especially when passing functions to child components that 
+    // rely on reference equality to prevent unnecessary renders.
+    
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === 'title') {

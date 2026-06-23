@@ -28,3 +28,5 @@ function Select({
 }
 
 export default React.forwardRef(Select)
+// React.forwardRef is a higher-order component that allows you to pass a ref through a component to one of its children.
+//  In this case, it allows the parent component to access the ref of the select element inside the Select component.
